@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "219794110900",
+    "firebase_url": "https://turfplay-c1195-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "turfplay-c1195",
+    "storage_bucket": "turfplay-c1195.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:219794110900:android:b1f902ed2f89b465f71ae1",
+        "android_client_info": {
+          "package_name": "com.ak.turfadmin.turfadmin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "219794110900-5hfe11dss9gnl4rn0189flagv47ch3va.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ak.turfadmin.turfadmin",
+            "certificate_hash": "f7ae85b9fb8c6e52f7374110c063952f4125578e"
+          }
+        },
+        {
+          "client_id": "219794110900-ljmosqm5btummtfjajglvj71is5tjkse.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB0vq0u3fl3qpZFekh_hPy5Bcqb2yQTQOs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "219794110900-ljmosqm5btummtfjajglvj71is5tjkse.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -2,22 +2,19 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:turfadmin/components/constants.dart';
-import 'package:turfadmin/tournament/addTournament.dart';
-import 'package:turfadmin/tournament/matches/matches.dart';
-import 'package:turfadmin/tournament/teams/teams.dart';
-import 'package:turfadmin/venue/timeslot.dart';
+import 'package:turfadmin/tournament/teams/addteam.dart';
 
-class TournamentPage extends StatefulWidget {
-  const TournamentPage({Key key}) : super(key: key);
+class TeamPage extends StatefulWidget {
+  const TeamPage({Key key}) : super(key: key);
 
   @override
-  _TournamentPageState createState() => _TournamentPageState();
+  _TeamPageState createState() => _TeamPageState();
 }
 
-class _TournamentPageState extends State<TournamentPage> {
+class _TeamPageState extends State<TeamPage> {
   TextEditingController nameController ;
-  TextEditingController teamsController;
-  TextEditingController matchesController;
+  TextEditingController locationController;
+  TextEditingController sportController;
   TextEditingController priceController;
   @override
   Widget build(BuildContext context) {
@@ -46,14 +43,14 @@ class _TournamentPageState extends State<TournamentPage> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: ElevatedButton(onPressed: (){
-                        Get.to(AddTournament());
-                }, child: Text("ADD TOURNAMENT"),style: ButtonStyle(
+                  Get.to(AddTeam());
+                }, child: Text("ADD TEAM"),style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(kblackcolor)
                 ),),
               ),
-              Text("TOURNAMENT LIST",style: TextStyle(letterSpacing: 2),),
+              Text("TEAM LIST",style: TextStyle(letterSpacing: 2),),
               Center(
-                child: buildSportCard("IPL","1"),
+                child: buildSportCard("JK TURF","1"),
               )
             ],
           ),
@@ -75,21 +72,58 @@ class _TournamentPageState extends State<TournamentPage> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 ElevatedButton(onPressed: (){
-                        Get.to(TeamPage());
-                }, child: Text("Team"),style: ButtonStyle(
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return StatefulBuilder(
+                          builder: (BuildContext context,
+                              void Function(void Function()) setState) {
+                            return AlertDialog(
+                              title: Text("Add Team",style: TextStyle(fontWeight: FontWeight.w700),),
+                              actions: [
+                                ElevatedButton(
+                                  onPressed: () {},
+                                  child: Text("ADD NOW"),
+                                  style: ButtonStyle(
+                                      backgroundColor:
+                                      MaterialStateProperty.all(
+                                          kgreen)),
+                                ),
+                                ElevatedButton(
+                                    onPressed: () {
+                                      Get.back();
+                                    },
+                                    child: Text("CANCEL"))
+                              ],
+                              content: Center(
+                                child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(10)),
+                                      color: kbg,
+                                    ),
+                                    width: MediaQuery.of(context).size.width,
+                                    child: ListView(
+                                        children: [
+
+                                          buildTextField(nameController, "NAME OF VENUE"),
+                                          buildTextField(locationController, "LOCATION"),
+                                          buildTextField(sportController, "SPORTS"),
+                                          buildTextField(priceController, "PRICE"),
+                                        ])
+                                ),
+                              ),
+                            );
+                          },
+                        );
+                      });
+                }, child: Text("Edit"),style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(kblue.withOpacity(0.5))
-                ),),
-                SizedBox(width: 10,),
-                ElevatedButton(onPressed: (){
-                  Get.to(MatchePage());
-                }, child: Text("Matches"),style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(kblackcolor.withOpacity(0.5))
                 ),),
                 SizedBox(width: 10,),
                 ElevatedButton(onPressed: (){}, child: Text("Delete"),style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(kredcolor.withOpacity(0.5))
                 ),),
-
               ],
             ))
           ],

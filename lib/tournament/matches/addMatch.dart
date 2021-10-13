@@ -23,6 +23,7 @@ class _AddMatchState extends State<AddMatch> {
   var isload = false;
   List<dynamic> selectedcuisine = [];
   List<dynamic> cuisine = ["FOOTBALL","BASKETBALL"];
+  var userDOB = DateTime.now();
 
   Future<Widget> timePicker(context) async {
     var openingHour = DateTime.now().hour;
@@ -48,6 +49,23 @@ class _AddMatchState extends State<AddMatch> {
       });
   }
 
+  _selectstartDate(BuildContext context) async {
+    DateTime picked = await showDatePicker(
+      context: context,
+      initialDate: userDOB, // Refer step 1
+      firstDate: DateTime(1960),
+      lastDate: DateTime(2050),
+    );
+    if (picked != null){
+      setState(() {
+        userDOB = picked;
+      });
+    }
+
+  }
+
+
+
 
 
   @override
@@ -60,8 +78,54 @@ class _AddMatchState extends State<AddMatch> {
 
                 buildTextField(namecontroller, "Name Of Match"),
                 SizedBox(height: 10,),
-                buildDropdownCard(),
+                buildDropdownCard("Select Venue"),
                 SizedBox(height: 20,),
+                buildDropdownCard("Select Team 1"),
+                SizedBox(height: 10,),
+                buildDropdownCard("Select Team 2"),
+                SizedBox(height: 10,),
+                InkWell(
+                    onTap: (){
+                      timePicker(context);
+                    },
+
+                    child:Card(
+                      elevation: 0,
+                      child: Container(
+                        margin: EdgeInsets.only(left: 80, right: 80),
+                        child: TextField(
+                          enabled: false,
+                          controller: opentiming,
+                          textAlign: TextAlign.center,
+                          decoration: InputDecoration(
+                            hintText:  opentiming == null ? "SELECT TIMING" :opentiming.value.text,
+                            labelStyle: GoogleFonts.basic(color: Colors.black,fontWeight: FontWeight.bold),
+                            labelText: opentiming == null ? "SELECT TIMING" :opentiming.value.text,
+                            hintStyle: TextStyle(color: Colors.black12),
+                          ),
+                        ),
+                      ),
+                    )
+                ),
+
+                InkWell(
+                  onTap: (){
+                    _selectstartDate(context);
+                  },
+                  child: Container(
+                    margin: EdgeInsets.all(15),
+                    child: Container(
+                      child: Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: Text(
+                            userDOB.toLocal().toString().split(' ')[0]),
+                      ),
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.green)),
+                    ),
+                  ),
+                ),
+
                 Padding (
                   padding: const EdgeInsets.all(8.0),
                   child: Container(
@@ -80,14 +144,14 @@ class _AddMatchState extends State<AddMatch> {
     );
   }
 
-  Card buildDropdownCard() {
+  Card buildDropdownCard(String text) {
     return Card(
                 elevation: 0,
                 child: Container(
                   margin: EdgeInsets.only(left: 80, right: 80),
                   child: Column(
                     children: [
-                      Text("Select Cuisines",style: GoogleFonts.basic(color: Colors.black,fontWeight: FontWeight.bold)),
+                      Text(text,style: GoogleFonts.basic(color: Colors.black,fontWeight: FontWeight.bold)),
                       MultiSelectDialogField(
                         items: cuisine.map((e) => MultiSelectItem(e, e)).toList(),
                         listType: MultiSelectListType.CHIP,

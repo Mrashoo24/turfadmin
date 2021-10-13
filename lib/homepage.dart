@@ -2,7 +2,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:turfadmin/components/constants.dart';
+import 'package:turfadmin/location/location.dart';
+import 'package:turfadmin/orders/allorders.dart';
+import 'package:turfadmin/sports/allsports.dart';
+import 'package:turfadmin/tournament/tournament.dart';
+import 'package:turfadmin/venue/venuepage.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key key,  this.title}) : super(key: key);
@@ -70,10 +76,11 @@ class _MyHomePageState extends State<MyHomePage> {
             Center(
               child: Wrap(
                 children: [
-                  buildCatCard("Location",FontAwesomeIcons.locationArrow),
-                  buildCatCard("Sport",FontAwesomeIcons.mobile),
-                  buildCatCard("Venue",FontAwesomeIcons.handPaper),
-                  buildCatCard("Order",FontAwesomeIcons.home),
+                  buildCatCard("Location",FontAwesomeIcons.locationArrow,()=>Get.to(LocatioPage())),
+                  buildCatCard("Sport",FontAwesomeIcons.mobile,()=>Get.to(AllSports())),
+                  buildCatCard("Venue",FontAwesomeIcons.handPaper,()=>Get.to(VenuePage())),
+                  buildCatCard("Order",FontAwesomeIcons.home,()=>Get.to(AllOrders())),
+                  buildCatCard("Tournament",FontAwesomeIcons.home,()=>Get.to(TournamentPage())),
                 ],
               ),
             )
@@ -83,19 +90,22 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  Card buildCatCard(String text,IconData location) {
-    return Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(32.0),
-                  child: Container(
-                    child: Column(
-                      children: [
-                      Icon(location),
-                        Text(text),
-                      ],
+  Widget buildCatCard(String text,IconData location,Function press) {
+    return InkWell(
+      onTap: press,
+      child: Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(32.0),
+                    child: Container(
+                      child: Column(
+                        children: [
+                        Icon(location),
+                          Text(text),
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              );
+    );
   }
 }
